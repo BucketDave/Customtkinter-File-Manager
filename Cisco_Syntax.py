@@ -1,3 +1,4 @@
+from tkinter import *
 import customtkinter as ctk
 
 import Cisco_Syntax_MiddleMan
@@ -15,13 +16,18 @@ ctk.set_default_color_theme("dark-blue")
 
 
 class App(ctk.CTk):
-    def __init__(self, title, size):
+    def __init__(self, title):
         super().__init__()
         # main setup
 
+        screensizex = self.winfo_screenwidth()
+        screensizey = self.winfo_screenheight()
+        print(screensizex, screensizey)
+        size = (screensizex/1.1, screensizey/1.3)
+
         self.title(title)
         self.geometry(f'{size[0]}x{size[1]}')
-        self.minsize(size[0],size[1])  
+        self.minsize(size[0],size[1])
 
         # layout
         self.grid_columnconfigure(0, weight=0) 
@@ -188,4 +194,4 @@ class Button(ctk.CTkButton):
 
 
 if __name__ == "__main__":
-    App('Cisco Syntax', (1400,800))
+    App('Cisco Syntax')
