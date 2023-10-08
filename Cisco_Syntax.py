@@ -15,26 +15,31 @@ ctk.set_default_color_theme("dark-blue")
 
 
 class App(ctk.CTk):
-	def __init__(self, title, size):
-		# main setup
-		super().__init__()
-		self.title(title)
-		self.geometry(f'{size[0]}x{size[1]}')
-		self.minsize(size[0],size[1])  
-		
-		# layout
-		self.grid_columnconfigure((0,1), weight=0) 
-		self.grid_columnconfigure(1, weight=1)
-		self.grid_rowconfigure((0,1), weight=1) 
+    def __init__(self, title, size):
+        super().__init__()
+        # main setup
 
-		# widgets
-		self.menu = Menu(self)
-		self.submenu = SubMenu(self)
-		self.menu.grid(row=0, column=0, rowspan=2, sticky="nsw")
-        
-        
-		# run 
-		self.mainloop()
+        self.title(title)
+        self.geometry(f'{size[0]}x{size[1]}')
+        self.minsize(size[0],size[1])  
+
+        # layout
+        self.grid_columnconfigure(0, weight=0) 
+        self.grid_columnconfigure(1, weight=0) 
+        self.grid_columnconfigure(2, weight=1)
+        self.grid_rowconfigure((0,1), weight=1) 
+
+        # widgets
+        self.menu = Menu(self)
+        self.submenu = SubMenu(self)
+        self.displaybox = DisplayBox_FeaturesFrame(self)
+
+        self.menu.grid(row=0, column=0, rowspan=2, sticky="nsw")
+        self.displaybox.grid(row=0, column=2, rowspan=2, sticky="nsew", padx=(5,0))
+
+
+        # run 
+        self.mainloop()
 
 
 class Menu(ctk.CTkFrame):
@@ -104,12 +109,58 @@ class SubMenu(ctk.CTkFrame):
         elif hidden == False:
             ssubmenu.grid(row=0, column=1, rowspan=9, sticky="nsw", padx=(5,0))
 
+class DisplayBox_FeaturesFrame(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.configure(corner_radius=0)
+
+        self.grid_columnconfigure(0, weight=1) 
+        self.grid_columnconfigure(1, weight=0) 
+        self.grid_rowconfigure(0, weight=0)
+        self.grid_rowconfigure(1, weight=1)
+        self.grid_rowconfigure(2, weight=0)
+
+        # Widgets
+        self.header = DisplayBox_FeaturesFrame.Header(self)
+        self.sysdisplay = DisplayBox_FeaturesFrame.SysDisplay(self)
+        self.textbox = DisplayBox_FeaturesFrame.Textbox(self)
+        self.footer = DisplayBox_FeaturesFrame.Footer(self)
+
+        # Widgets grid
+        self.header.grid(row=0, column=0, sticky="new")
+        self.sysdisplay.grid(row=0, column=1, sticky="ne")
+        self.textbox.grid(row=1, rowspan=3, column=0, columnspan=2, sticky="nsew", pady=(5,0))
+        self.footer.grid(row=2, column=0, columnspan=2, sticky="ew", pady=(5,0))
+
+    class Header(ctk.CTkFrame):
+        def __init__(self, parent):
+            super().__init__(parent)
+            self.configure(corner_radius=0)
+            self.configure(height=100)
+            
+
+    class SysDisplay(ctk.CTkTextbox):
+        def __init__(self, parent):
+            super().__init__(parent)
+            self.configure(corner_radius=0)
+            self.configure(height=100)
+            self.configure(width=300)
+
+    class Textbox(ctk.CTkTextbox):
+        def __init__(self, parent):
+            super().__init__(parent)
+    
+    class Footer(ctk.CTkFrame):
+        def __init__(self, parent):
+            super().__init__(parent)
+
+
 class Button(ctk.CTkButton):
         def __init__(self, parent, name: str, corner: int, command: callable):
             super().__init__(parent)
 
             self.configure(text=name)
-            self.configure(corner_radius= corner)
+            self.configure(corner_radius=corner)
             self.configure(command=command)
             
         def Main_Click(name):
