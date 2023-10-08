@@ -89,7 +89,7 @@ class SubMenu(ctk.CTkFrame):
         ssubmenu = self
         ssubmenu.configure(width=140)
 
-    def subbuttons(dir: list):
+    def subbuttons(folder_n, dir: list):
         SubMenu.SubMenuVis(hidden=True)
         SubMenu.SubMenuVis(hidden=False)
 
@@ -99,7 +99,7 @@ class SubMenu(ctk.CTkFrame):
         subbuttondict = []
 
         for number, name in enumerate(dir):
-            a = (f"button{number} = Button(parent=ssubmenu, name='{name}', corner=0, command= lambda: Button.SubButtonClick('{name}'))")
+            a = (f"button{number} = Button(parent=ssubmenu, name='{name}', corner=0, command= lambda: Button.SubButtonClick(folder_n='{folder_n}', name='{name}'))")
             subbuttondict.append(a)
             
         for number, command in enumerate(subbuttondict):
@@ -180,16 +180,15 @@ class Button(ctk.CTkButton):
             if name == False:
                 pass
             else:
-                SubMenu.subbuttons(dir = list)
+                SubMenu.subbuttons(folder_n = name, dir = list)
                 pass
 
-        def SubButtonClick(name):
-            
+        def SubButtonClick(folder_n, name):
             str_name = str(name)
             n_name = str_name.replace("{", "")
             nn_name = n_name.replace("}", "")
             nnn_name = nn_name.replace("'", "")
-                
+            print(folder_n)
             print(nnn_name)
 
 
