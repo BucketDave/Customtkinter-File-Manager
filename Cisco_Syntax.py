@@ -7,14 +7,6 @@ ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
 
 
-import customtkinter as ctk
-
-import Cisco_Syntax_MiddleMan
-
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("dark-blue")
-
-
 class App(ctk.CTk):
     def __init__(self, title):
         super().__init__()
@@ -155,10 +147,24 @@ class DisplayBox_FeaturesFrame(ctk.CTkFrame):
     class Textbox(ctk.CTkTextbox):
         def __init__(self, parent):
             super().__init__(parent)
+            self.configure(corner_radius=0)
+            global textbox
+            textbox = self
+
+        def text(f_text):
+            print(f_text)
+            print(textbox.get('0.0', 'end'))
+
+            if f_text == textbox.get('0.0', 'end-1c'):
+                print("== True")
+            else:
+                textbox.delete('0.0', 'end-1c')
+                textbox.insert(text=f_text, index='0.0')
     
     class Footer(ctk.CTkFrame):
         def __init__(self, parent):
             super().__init__(parent)
+            self.configure(height=125)
 
 
 class Button(ctk.CTkButton):
@@ -190,6 +196,8 @@ class Button(ctk.CTkButton):
             nnn_name = nn_name.replace("'", "")
             print(folder_n)
             print(nnn_name)
+            filecontents = Cisco_Syntax_MiddleMan.SubButton_Contents(folder_n, name)
+            DisplayBox_FeaturesFrame.Textbox.text(f_text=filecontents)
 
 
 if __name__ == "__main__":
