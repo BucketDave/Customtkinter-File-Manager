@@ -27,5 +27,28 @@ def Find_Dir(name):
     else:
         return False
 
+def Find_File(folder_n, name):
+    folder_n_path = Find_Dir(name=folder_n)
+    if dir == False:
+        return False
+    else:
+        for file in os.listdir(folder_n_path):
+            if name == file:
+                print(f"{name} == {file}")
+                return os.path.join(folder_n_path, name)
+            else:
+                return False
+
+def File_Contents(path):
+    with open(path, 'r') as file_read:
+        contents = file_read.read()
+        return contents
+
+
+
+
+
+
+
 Boot()
 
