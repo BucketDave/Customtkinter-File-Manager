@@ -18,10 +18,13 @@ def MainButton_Dir(name):
 
 def SubButton_Contents(folder_n, name):
     verifyexist = Cisco_Syntax_Backend.Find_File(folder_n, name)
-    print(verifyexist)
+    print(f"verify {verifyexist}")
     if verifyexist:
         filecontents = Cisco_Syntax_Backend.File_Contents(verifyexist)
-        return filecontents
+        if filecontents == None:
+            pass
+        else:
+            return filecontents
     else:
         pass
 

@@ -159,7 +159,7 @@ class DisplayBox_FeaturesFrame(ctk.CTkFrame):
                 print("== True")
             else:
                 textbox.delete('0.0', 'end-1c')
-                textbox.insert(text=f_text, index='0.0')
+                textbox.insert(index='0.0', text=f_text)
     
     class Footer(ctk.CTkFrame):
         def __init__(self, parent):
@@ -194,7 +194,7 @@ class Button(ctk.CTkButton):
             n_name = str_name.replace("{", "")
             nn_name = n_name.replace("}", "")
             nnn_name = nn_name.replace("'", "")
-            print(folder_n)
+            print(f"folder {folder_n}")
             print(nnn_name)
             filecontents = Cisco_Syntax_MiddleMan.SubButton_Contents(folder_n, name)
             DisplayBox_FeaturesFrame.Textbox.text(f_text=filecontents)

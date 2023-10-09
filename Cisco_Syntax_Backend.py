@@ -16,6 +16,7 @@ def Host_dir():
     return app_dir
 
 def Find_Dir(name):
+    print(f"find_dir {name}")
     dir_con = os.listdir(app_dir)
 
     for folder in dir_con:
@@ -23,21 +24,18 @@ def Find_Dir(name):
             print(f"{name} in {app_dir} as {folder}")
             name_dir = os.path.join(app_dir, name)
             print(name_dir)
-            return name_dir
-    else:
-        return False
+    return name_dir
 
 def Find_File(folder_n, name):
     folder_n_path = Find_Dir(name=folder_n)
-    if dir == False:
+    print(f"folder_n_path = {folder_n_path}")
+    if folder_n_path == None:
         return False
     else:
         for file in os.listdir(folder_n_path):
             if name == file:
                 print(f"{name} == {file}")
                 return os.path.join(folder_n_path, name)
-            else:
-                return False
 
 def File_Contents(path):
     with open(path, 'r') as file_read:
